@@ -58,9 +58,12 @@ sudo -H python3 setup.py install
 
 # setup Jetson.GPIO
 echo "\e[100m Install Jetson.GPIO package \e[0m"
+git clone https://github.com/NVIDIA/jetson-gpio.git
+cd jetson-gpio
+sudo python3 setup.py install
 sudo groupadd -f -r gpio
 sudo -S usermod -a -G gpio $USER
-sudo cp /opt/nvidia/jetson-gpio/etc/99-gpio.rules /etc/udev/rules.d/
+sudo cp lib/python/Jetson/GPIO/99-gpio.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 
