@@ -58,6 +58,7 @@ sudo -H python3 setup.py install
 
 # setup Jetson.GPIO
 echo "\e[100m Install Jetson.GPIO package \e[0m"
+cd
 git clone https://github.com/NVIDIA/jetson-gpio.git
 cd jetson-gpio
 sudo python3 setup.py install
