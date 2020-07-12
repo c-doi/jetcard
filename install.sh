@@ -160,6 +160,14 @@ sudo jupyter lab build
 echo "\e[104m Install remaining dependencies for projects \e[0m"
 sudo apt-get install python-setuptools
 
+# Other setup
+echo "\e[42m  Ohter setup \e[0m"
+echo export PATH='/usr/local/cuda/bin:$PATH' >> ~/.bashrc
+sudo nvpmodel -m 0
+
+cd
+git clone https://github.com/jetsonhacks/jetsonUtilities
+
 
 echo "\e[42m All done! \e[0m"
 
