@@ -50,7 +50,7 @@ sudo -H pip3 install numpy torch-1.6.0rc2-cp36-cp36m-linux_aarch64.whl
 
 # Install torchvision package
 echo "\e[45m Install torchvision package \e[0m"
-sudo apt-get install libjpeg-dev zlib1g-dev
+sudo apt-get install libjpeg-dev zlib1g-dev -y
 cd
 git clone --branch release/0.7 https://github.com/pytorch/vision torchvision
 cd torchvision
@@ -141,7 +141,7 @@ fi
 # Install jupyter_clickable_image_widget
 echo "\e[42m Install jupyter_clickable_image_widget \e[0m"
 cd
-sudo apt-get install libssl1.0-dev
+sudo apt-get install libssl1.0-dev -y
 #sudo apt-get install nodejs-dev node-gyp libssl1.0-dev
 #sudo apt-get install npm
 git clone https://github.com/jaybdub/jupyter_clickable_image_widget
