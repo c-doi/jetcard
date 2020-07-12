@@ -43,30 +43,31 @@ sudo -H pip3 install --pre --extra-index-url https://developer.download.nvidia.c
 # Install the pre-built PyTorch pip wheel 
 echo "\e[45m Install the pre-built PyTorch pip wheel  \e[0m"
 cd
-wget -N https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl -O torch-1.5.0-cp36-cp36m-linux_aarch64.whl
+wget -N https://nvidia.box.com/shared/static/yr6sjswn25z7oankw8zy1roow9cy5ur1.whl -O torch-1.6.0rc2-cp36-cp36m-linux_aarch64.whl
 sudo apt-get install -y python3-pip libopenblas-base libopenmpi-dev 
 sudo -H pip3 install Cython
-sudo -H pip3 install numpy torch-1.5.0-cp36-cp36m-linux_aarch64.whl
+sudo -H pip3 install numpy torch-1.6.0rc2-cp36-cp36m-linux_aarch64.whl
 
 # Install torchvision package
 echo "\e[45m Install torchvision package \e[0m"
+sudo apt-get install libjpeg-dev zlib1g-dev
 cd
-git clone https://github.com/pytorch/vision
-cd vision
-#git checkout v0.4.0
+git clone --branch release/0.7 https://github.com/pytorch/vision torchvision
+cd torchvision
 sudo -H python3 setup.py install
 
 # setup Jetson.GPIO
-#echo "\e[100m Install torchvision package \e[0m"
-#sudo groupadd -f -r gpio
-#sudo -S usermod -a -G gpio $USER
-#sudo cp /opt/nvidia/jetson-gpio/etc/99-gpio.rules /etc/udev/rules.d/
-#sudo udevadm control --reload-rules
-#sudo udevadm trigger
+echo "\e[100m Install Jetson.GPIO package \e[0m"
+sudo groupadd -f -r gpio
+sudo -S usermod -a -G gpio $USER
+sudo cp /opt/nvidia/jetson-gpio/etc/99-gpio.rules /etc/udev/rules.d/
+sudo udevadm control --reload-rules
+sudo udevadm trigger
 
 # Install traitlets (master, to support the unlink() method)
 echo "\e[48;5;172m Install traitlets \e[0m"
-sudo -H python3 -m pip install git+https://github.com/ipython/traitlets@master
+#sudo -H python3 -m pip install git+https://github.com/ipython/traitlets@master
+sudo apt-get install -y python3-traitlets
 
 # Install Jupyter Lab
 echo "\e[48;5;172m Install Jupyter Lab \e[0m"
@@ -80,7 +81,7 @@ jupyter lab --generate-config
 python3 -c "from notebook.auth.security import set_password; set_password('$password', '$HOME/.jupyter/jupyter_notebook_config.json')"
 
 # fix for Traitlet permission error
-sudo chown -R jetson:jetson ~/.local/share/
+sudo chown -R $USER:$USER ~/.local/share/
 
 # Install jetcard
 echo "\e[44m Install jetcard \e[0m"
